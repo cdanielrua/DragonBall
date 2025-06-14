@@ -1,0 +1,79 @@
+classDiagram
+    %% Clases principales
+    class DragonBall {
+      - Nivel* niveles
+      - Jugador* protagonista
+      - Enemigo[] enemigos
+      + iniciar()
+      + actualizar()
+      + renderizar()
+    }
+
+    class Nivel {
+      - int id
+      - Mapa mapa
+      - Sprites[] spritesNivel
+      + cargar()
+      + actualizarFísicas()
+      + dibujar()
+    }
+
+    class Mapa {
+      - Tile[][] tiles
+      + getTile(x, y)
+      + setTile(x, y, tile)
+    }
+
+    class Sprite {
+      - Imagen textura
+      - Vec2 posicion
+      - Vec2 velocidad
+      + actualizar()
+      + dibujar()
+    }
+
+    class Jugador {
+      + mover(input)
+      + saltar()
+      + atacar()
+      + detectarColision(Entidad)
+    }
+
+    class Enemigo {
+      + patrolear()
+      + seguirObjetivo(Jugador)
+      + atacar()
+      + detectarColision(Entidad)
+    }
+
+    class Fisica {
+      + aplicarGravedad(Entidad)
+      + calcularColision(Entidad, Tile)
+      + resolverColision(Entidad, Tile)
+    }
+
+    class Hud {
+      + mostrarVida(int)
+      + mostrarPuntaje(int)
+    }
+
+    %% Relaciones (composición con rombos negros)
+    DragonBall "1" *-- "*" Nivel  
+    Nivel "1" *-- "1" Mapa  
+    Nivel "1" *-- "*" Sprite 
+    Sprite <|-- Jugador
+    Sprite <|-- Enemigo
+    DragonBall "1" *-- "1" Hud 
+    Fisica ..> Entidad 
+
+    %% Notas
+    class Entidad {
+      <<abstract>>
+      - Vec2 posicion
+      - Vec2 velocidad
+      + actualizar()
+      + dibujar()
+    }
+    Sprite --|> Entidad
+    Jugador --|> Entidad
+    Enemigo --|> Entidad
