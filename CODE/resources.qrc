@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/mapa">
+        <file>imagenes/mapa.png</file>
+        <file>imagenes/orbitales.png</file>
+        <file>imagenes/pendulo.png</file>
+        <file>imagenes/cajaammno.png</file>
+        <file>imagenes/balacanon.png</file>
+        <file>imagenes/canon.png</file>
+        <file>imagenes/personaje3.png</file>
+        <file>imagenes/arena.png</file>
+        <file>imagenes/fondo.png</file>
+        <file>imagenes/cymbal.png</file>
+        <file>imagenes/esferadragon.png</file>
+        <file>imagenes/fuegoazul.png</file>
+        <file>imagenes/goku.png</file>
+        <file>imagenes/piccolo.png</file>
+    </qresource>
+</RCC>

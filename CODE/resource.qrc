@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/mapa">
+        <file>imagenes/arena.png</file>
+        <file>imagenes/asd.png</file>
+        <file>imagenes/balacanon.png</file>
+        <file>imagenes/bolasdejefe.png</file>
+        <file>imagenes/bullet.png</file>
+        <file>imagenes/cajaammno.png</file>
+        <file>imagenes/canon.png</file>
+        <file>imagenes/fondo.png</file>
+        <file>imagenes/hechicero.png</file>
+        <file>imagenes/jefe.png</file>
+        <file>imagenes/mapa.png</file>
+        <file>imagenes/orbitales.png</file>
+        <file>imagenes/pendulo.png</file>
+        <file>imagenes/personaje3.png</file>
+        <file>imagenes/zombie.png</file>
+    </qresource>
+</RCC>
