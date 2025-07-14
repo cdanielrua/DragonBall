@@ -1,0 +1,185 @@
+classDiagram
+    direction TD
+
+    %% -------------------
+    %% Clases Base y Personajes
+    %% -------------------
+    class personaje {
+        +int radio
+        +int velocidad
+        +int vida
+        +int municion
+        +int mapa
+        +int posx
+        +int posy
+        +personaje(int x, int y, int r)
+        +void moveRight()
+        +void moveLeft()
+        +void moveUp()
+        +void moveDown()
+        +void paint(QPainter*, ...)
+    }
+    note for personaje "Hereda de QGraphicsItem y QObject de Qt"
+
+    class enemigo1 {
+        -int radio
+        +int direccionMov
+        +int direccionDisp
+        +enemigo1(int x, int y, int r, int _direccionMov, int _direccionDisp)
+        +void move()
+    }
+
+    class enemigo2 {
+        +int posxInicial
+        +int posyInicial
+        +enemigo2(int x, int y, int r)
+        +void move(int objetivox, int objetivoy, bool colision)
+    }
+
+    class enemigo3 {
+        +enemigo3(int x, int y, int r)
+        +void move(int objetivox, int objetivoy)
+    }
+
+    %% -------------------
+    %% Clases de Obstaculos y Entorno
+    %% -------------------
+    class muros {
+        +int posx
+        +int posy
+        +int w
+        +int h
+        +muros(int w, int h, int x, int y)
+        +void paint(QPainter*, ...)
+    }
+    note for muros "Hereda de QGraphicsItem de Qt"
+
+    class cannon {
+        +cannon(int x, int y, int w, int h)
+    }
+
+    class municion {
+        -QPixmap pixmap
+        +municion(int x, int y, int w, int h)
+    }
+    
+    class teletransportacion {
+        +int posx, posy, w, h
+        +teletransportacion(int w, int h, int x, int y)
+    }
+
+    class pendulo {
+        -double angulo
+        -double vAngular
+        -double aAngular
+        -int longitud
+        +pendulo(double x, double y, int r)
+        +void move()
+    }
+    note for pendulo "Hereda de QObject y QGraphicsItem de Qt"
+    
+    class enemigogiratorio {
+        -float AX, AY, G
+        +float PX, PY, VX, VY
+        +float masa, radio
+        +enemigogiratorio(float PX_, float PY_, ...)
+        +void acelerar(float px2_, float py2_, float mass2)
+        +void actualizar(float dt)
+    }
+    note for enemigogiratorio "Hereda de QGraphicsItem de Qt"
+
+    class escudo {
+        -int posx, posy
+        -double angulo
+        -int radio, distancia
+        +escudo(int _distancia, double _angulo, int _radio)
+        +void move()
+        +void setCentro(int x, int y)
+    }
+    note for escudo "Hereda de QGraphicsItem de Qt"
+
+    %% -------------------
+    %% Clases de Proyectiles
+    %% -------------------
+    class proyectil {
+        -int direccion
+        -int velocidad
+        +proyectil(int x, int y, int direccion, int _tamano, int _velocidad)
+        -void move()
+    }
+    note for proyectil "Hereda de QObject y QGraphicsItem de Qt"
+
+    class bolaCannon {
+        -int r
+        -double vel_x, vel_y
+        +double posx, posy
+        +bolaCannon(double x, double y, double v, double ang)
+        +void Mover()
+        +void CalcularVelocidad()
+        +void CalcularPosicion()
+    }
+    note for bolaCannon "Hereda de QGraphicsItem de Qt"
+    
+    %% -------------------
+    %% Clases de Logica y Datos
+    %% -------------------
+    class sesion {
+        +QString usuario
+        +QString vida
+        +QString municion
+        +QString mapa
+        +sesion(QString _nombre, ...)
+        +bool busquedaUsuario()
+    }
+
+    class MainWindow {
+        -Ui::MainWindow *ui
+        -QGraphicsScene *mapaEscena
+        -personaje *tulio
+        -list~proyectil*~ balasPersonaje
+        -list~enemigo1*~ goku
+        -list~enemigo2*~ piccolo
+        -list~escudo*~ orbes
+        -QList~muros*~ paredes
+        -int nivelActual
+        +MainWindow()
+        -void keyPressEvent(QKeyEvent*)
+        -void nivel1()
+        -void actualizar()
+        -void cargarNivel1()
+        -void cargarNivel2()
+        -void cargarNivel3()
+        -bool EvaluarColision(tipo*)
+    }
+    note for MainWindow "Hereda de QMainWindow de Qt"
+
+    %% -------------------
+    %% Relaciones
+    %% -------------------
+    
+    %% Herencia
+    personaje <|-- enemigo1
+    personaje <|-- enemigo2
+    personaje <|-- enemigo3
+    muros <|-- cannon
+    muros <|-- municion
+    muros <|-- teletransportacion
+
+    %% Asociaciones con MainWindow (Controlador Principal)
+    MainWindow "1" -- "1" personaje
+    MainWindow "1" -- "0..N" enemigo1
+    MainWindow "1" -- "0..N" enemigo2
+    MainWindow "1" -- "0..N" enemigo3
+    MainWindow "1" -- "0..N" proyectil
+    MainWindow "1" -- "0..N" bolaCannon
+    MainWindow "1" -- "0..N" muros
+    MainWindow "1" -- "0..N" municion
+    MainWindow "1" -- "0..N" pendulo
+    MainWindow "1" -- "0..N" enemigogiratorio
+    MainWindow "1" -- "0..N" escudo
+    MainWindow "1" -- "1" cannon
+    MainWindow "1" -- "1" sesion
+    
+    %% Asociaciones entre entidades del juego
+    enemigo3 "1" -- "0..N" escudo
+    cannon "1" -- "0..N" bolaCannon
